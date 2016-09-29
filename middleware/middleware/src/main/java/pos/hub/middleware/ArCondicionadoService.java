@@ -5,6 +5,7 @@
  */
 package pos.hub.middleware;
 
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -12,7 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.json.JSONObject;
 
 /**
@@ -22,30 +22,32 @@ import org.json.JSONObject;
 @Path("arcondicionado")
 public class ArCondicionadoService implements Controle {
 
+    @Inject
+    private MyMqttClient mqtt;
     
-    private MqttFacade mqtt;
+    private final String topic = "arcondicionado/";
     
-    public ArCondicionadoService(){
-        mqtt = new MqttFacade();
+    private Response sendMessage(Comandos subtopic, String message){
+         try{
+            mqtt.sendMessage(this.topic + subtopic.getTopic(), message);
+            JSONObject json = new JSONObject();
+            json.put("success", "true");
+            return Response.status(200).entity(""+json).build();
+        }
+        catch(Throwable e){
+            JSONObject json = new JSONObject();
+            json.put("msg", "Erro ao conectar ao mqtt broker");
+            return Response.status(500).entity(""+json).build();
+        }
     }
-    
     
     @PUT
     @Override
     @Path("ligar")
     @Produces("application/json")
     public Response ligar() {
-        try{
-            mqtt.sendMessage("arcondicionado/ligar", "ligar");
-            JSONObject json = new JSONObject();
-            json.put("success", "true");
-            return Response.status(200).entity(""+json).build();
-        }
-        catch(MqttException e){
-            JSONObject json = new JSONObject();
-            json.put("msg", "Erro ao conectar ao mqtt broker");
-            return Response.status(500).entity(""+json).build();
-        }
+        
+        return sendMessage(Comandos.LIGAR, "ligar");
         
     }
 
@@ -54,9 +56,9 @@ public class ArCondicionadoService implements Controle {
     @Override
     @Produces("application/json")
     public Response desligar() {
-        JSONObject json = new JSONObject();
-        json.put("desligar ligar", "true");
-        return Response.status(200).entity(""+json).build();
+       
+        return sendMessage(Comandos.DESLIGAR, "desligar");
+       
     }
 
     @PUT
@@ -65,10 +67,8 @@ public class ArCondicionadoService implements Controle {
     @Produces("application/json")
     public Response aumentar(@PathParam("valor") int valor) {
         
-        JSONObject json = new JSONObject();
-        json.put("arcondicionado aumentar", valor);
+        return sendMessage(Comandos.AUMENTAR, Integer.toString(valor));
         
-        return Response.status(200).entity(""+json).build();
     }
 
     @PUT
@@ -77,10 +77,8 @@ public class ArCondicionadoService implements Controle {
     @Produces("application/json")
     public Response diminuir(@PathParam("valor") int valor) {
         
-        JSONObject json = new JSONObject();
-        json.put("arcondicionado diminuir", valor);
+        return sendMessage(Comandos.DIMINUIR, Integer.toString(valor));
         
-        return Response.status(200).entity(""+json).build();
     }
 
 
@@ -89,10 +87,7 @@ public class ArCondicionadoService implements Controle {
     @Override
     @Produces("application/json")
     public Response getIntensidade() {
-        JSONObject json = new JSONObject();
-        json.put("arcondicionado intensidade", 30);
-        
-        return Response.status(200).entity(""+json).build();
+        return sendMessage(Comandos.INTENSIDADE, "intensidade");
     }
 
     @GET
@@ -100,9 +95,7 @@ public class ArCondicionadoService implements Controle {
     @Override
     @Produces("application/json")
     public Response getStatus() {
-        JSONObject json = new JSONObject();
-        json.put("arcondicionado ligado", true);
-        return Response.status(200).entity(""+json).build();
+        return sendMessage(Comandos.STATUS, "status");
     }
     
 }
