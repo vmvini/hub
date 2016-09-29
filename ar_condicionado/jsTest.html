@@ -1,0 +1,72 @@
+<html>
+	<body>
+
+
+	</body>
+
+	<script>
+		function CreateControllerFactory(target){
+
+		function turnOn(){
+			target.on = true;
+			target.off = false;
+		}
+
+		function turnDown(){
+			target.on = false;
+			target.off = true;
+		}
+
+		function getStatus(){
+			return {
+
+				on: target.on,
+				off: target.off
+
+			};
+		}
+
+		function increase(v){
+			target.intensity += v;
+		}
+
+		function decrease(v){
+			target.intensity -= v;
+		}
+
+
+		function getIntensity(){
+			return target.intensity;
+		}
+
+		var topicName = "arcondicionado";
+
+		function createTopicName(subtopic){
+			return topicName + "/" + subtopic;
+		}
+
+		return function(){
+
+			this[createTopicName("ligar")] = function(){
+
+				console.log("ligar ar condicionado");
+
+			};
+
+		};
+	}
+
+
+	var controller = CreateControllerFactory({
+		on: true, 
+		off: false, 
+		intensity: 10
+	});
+
+	var c = new controller();
+
+	c['arcondicionado/ligar']();
+
+	</script>
+
+</html>
