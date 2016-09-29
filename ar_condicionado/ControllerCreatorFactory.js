@@ -9,7 +9,7 @@ module.exports = function(target, client){
 		client.publish( createInfoTopicName("intensidade"), String(target.intensity)  );
 		console.log("enviou mensagem");
 
-	}, 1000);
+	}, 5000);
 
 
 	function createTopicName(subtopic){

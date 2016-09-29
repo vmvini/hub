@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="dependencies/css/bootstrap.min.css" />
 <link rel="stylesheet" href="dependencies/css/ng-grid.min.css" />
 
+
 <script src="dependencies/angular.min.js"></script>
 <script src="dependencies/jquery.min.js"></script>
 <script src="dependencies/ui-bootstrap-tpls.min.js"></script>
@@ -22,16 +23,27 @@
 
 <script src="dependencies/angular_app/app.js"></script>
 <script src="dependencies/angular_app/service.js"></script>
+<script src="dependencies/angular_app/identifyService.js"></script>
 <script src="dependencies/angular_app/websocket.js"></script>
 <script src="dependencies/angular_app/controller.js"></script>
 
 </head>	
 <body ng-controller="controller as vm" >
+
+<!-- filtro pro efeito de frio -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="1" />
+    </filter>
+  </defs>
+</svg>
+
 <div id="wrapper">
 	<div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
-			<h1><a href="#">HUB {{vm.mensagemRecebida}}</a></h1>
+			<h1><a href="#">HUB {{vm.arTemperatura}}</a></h1>
 		</div>
 		<div id="menu">
 			<ul>
@@ -45,10 +57,17 @@
 			<div class="title">
 				<h2>HUB</h2>
 				<span class="byline">{{1+1}} Projeto POS</span> </div>
-			
+
+							
 		</div>
 	</div>
 	<div id="extra" class="container">
+
+				<label for="arTemp" >Temperatura do ar condicionado:</label>>
+				<input id="arTemp" type="text" ng-model="vm.novoArTemperatura" /> 
+				<button ng-click="vm.mudarTemperaturaAr()">Atualizar temperatura</button>
+
+
 		<!--div class="title">
 			<h2>Praesent scelerisquet</h2>
 			<span class="byline">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue</span> </div>

@@ -3,22 +3,39 @@
 	angular.module('hub')
 		.controller('controller', controller);
 
-	controller.$inject = ['$scope', 'service', 'websocket' ];
-	function controller($scope, service, websocket){
+	controller.$inject = ['$scope', 'service', 'websocket', 'identify' ];
+	function controller($scope, service, websocket, identify){
 
 		var vm = this;
+		vm.arStatus = "";
+		vm.arTemperatura = "";
+		vm.lampadaStatus = "";
+		vm.luzBrilho = "";
+
+		vm.novoArTemperatura = "";
 
 		websocket.onmessage(function(d){
-			vm.mensagemRecebida = d;
+			//vm.mensagemRecebida = d;
+
+			identify.for(d, vm, {
+
+				"info/arcondicionado/status": "arStatus",
+				"info/arcondicionado/intensidade":"arTemperatura", 
+				"info/lampada/status":"lampadaStatus", 
+				"info/lampada/intensidade":"luzBrilho"
+
+
+			});
+
 			console.log(d);
 		});
 
 
 		vm.mudarTemperaturaAr = function(){
 
-			service.mudarTemperaturaAr(vm.arTemperatura)
+			service.mudarTemperaturaAr(vm.novoArTemperatura)
 					.success(function(e){
-						console.log("sucesso ao aumentar temperatura", e);
+						console.log("sucesso ao mudar temperatura", e);
 					})	
 					.error(function(e){
 						console.log("erro: ", e);

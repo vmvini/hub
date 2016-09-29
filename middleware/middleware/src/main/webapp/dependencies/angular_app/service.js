@@ -7,27 +7,27 @@
 	function service($http){
 
 		function mudarTemperaturaAr(v){
-			return $http.put('/api/arcondicionado/alterar/'+v);
+			return $http.put('/middleware/api/arcondicionado/alterar/'+v);
 		}
 
 		function desligarAr(){
-			return $http.put('/api/arcondicionado/desligar');
+			return $http.put('/middleware/api/arcondicionado/desligar');
 		}
 
 		function ligarAr(){
-			return $http.put('/api/arcondicionado/ligar');
+			return $http.put('/middleware/api/arcondicionado/ligar');
 		}
 
 		function ligarLuz(){
-			return $http.put('/api/lampada/ligar');
+			return $http.put('/middleware/api/lampada/ligar');
 		}
 
 		function desligarLuz(){
-			return $http.put('/api/lampada/desligar');
+			return $http.put('/middleware/api/lampada/desligar');
 		}
 
 		function mudarBrilhoLuz(v){
-			return $http.put('/api/lampada/alterar/' + v);
+			return $http.put('/middleware/api/lampada/alterar/' + v);
 		}
 
 
