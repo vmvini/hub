@@ -14,29 +14,41 @@ module.exports = function(target){
 
 	function turnOn(){
 		target.on = true;
-		target.off = false;
 	}
 
 	function turnDown(){
 		target.on = false;
-		target.off = true;
 	}
 
 	function getStatus(){
-		return {
-
-			on: target.on,
-			off: target.off
-
-		};
+		if(target.on){
+			return "ligado";
+		}
+		else{
+			return "desligado";
+		}
 	}
 
 	function increase(v){
-		target.intensity += v;
+		
+		if(target.intensity + Number(v) > 100 ){
+			target.intensity = 100;
+		}
+		else{ 
+			target.intensity += Number(v);
+		}
+
 	}
 
 	function decrease(v){
-		target.intensity -= v;
+		
+		if(target.intensity - Number(v) < 0){
+			target.intensity = 0;
+		}
+		else{
+			target.intensity -= Number(v);
+		}
+
 	}
 
 

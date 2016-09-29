@@ -9,7 +9,6 @@
 	var arcondicionado = {
 
 		on: false,
-		off: true, 
 		intensity: 10
 
 	};
@@ -20,6 +19,11 @@
 
 		//enviar resposta resp para topico topic
 		console.log("enviando resposta '" + resp + "' para topico: '" + topic + "'");
+
+		client.publish(topic, String(resp), {}, function(){
+			console.log("enviou resposta '" + resp + "' para topico: '" + topic + "'");
+		});
+
 
 	});
 
