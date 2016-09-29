@@ -1,0 +1,33 @@
+version: '2'
+services:
+  
+  broker:
+    build:
+      context: ./broker/
+      dockerfile: ./Dockerfile
+    ports:
+      - "9001:9001"
+      - "1883:1883"
+
+  ar_condicionado:
+    build:
+      context: ./ar_condicionado/
+      dockerfile: ./Dockerfile
+
+  lampada_a:
+    build:
+      context: ./lampada/
+      dockerfile: ./Dockerfile
+
+  middleware:
+    build:
+      context: ./middleware/
+      dockerfile: ./Dockerfile
+
+  webapp:
+    build:
+      context: ./webapp/
+      dockerfile: ./Dockerfile
+      ports:
+        - "80:3000"
+
