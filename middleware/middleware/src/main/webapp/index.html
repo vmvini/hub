@@ -67,6 +67,10 @@
 				<input id="arTemp" type="text" ng-model="vm.novoArTemperatura" /> 
 				<button ng-click="vm.mudarTemperaturaAr()">Atualizar temperatura</button>
 
+				<p>Status do ar condicionado: {{vm.arStatus}} </p>
+				<button ng-click="vm.ligarAr()">Ligar</button>
+				<button ng-click="vm.desligarAr()">Desligar</button>
+
 
 		<!--div class="title">
 			<h2>Praesent scelerisquet</h2>

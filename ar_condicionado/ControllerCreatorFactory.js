@@ -4,10 +4,19 @@ module.exports = function(target, client){
 
 	var respTopicName = "info/arcondicionado"
 
-	setInterval(function(){
+	var previousIntensity = target.intensity;
+
+	var task = setInterval(function(){
+
+		if(target.on === false){
+			target.intensity = "--";
+		}
 
 		client.publish( createInfoTopicName("intensidade"), String(target.intensity)  );
+		client.publish( createInfoTopicName("status"), String(getStatus())  );
 		console.log("enviou mensagem");
+
+
 
 	}, 5000);
 
@@ -21,10 +30,12 @@ module.exports = function(target, client){
 	}
 
 	function turnOn(){
+		target.intensity = previousIntensity;
 		target.on = true;
 	}
 
 	function turnDown(){
+		previousIntensity = target.intensity;
 		target.on = false;
 	}
 
@@ -38,6 +49,10 @@ module.exports = function(target, client){
 	}
 
 	function update(v){
+
+		if(target.on === false){
+			return;
+		}
 		
 		if(v > 100 ){
 			target.intensity = 100;

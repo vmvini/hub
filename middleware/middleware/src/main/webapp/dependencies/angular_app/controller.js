@@ -13,7 +13,7 @@
 		vm.luzBrilho = "";
 
 		vm.novoArTemperatura = "";
-
+		
 		websocket.onmessage(function(d){
 			//vm.mensagemRecebida = d;
 
