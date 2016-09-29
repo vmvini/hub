@@ -24,6 +24,8 @@ EXPOSE      8080
 
 WORKDIR     /usr/glassfish4
 
+VOLUME /usr/glassfish4/glassfish/domains/domain1/logs
+
 
 ADD middleware/target/middleware.war $WORKDIR
 ADD middleware/target/middleware/WEB-INF/lib/ /usr/glassfish4/glassfish/lib/
