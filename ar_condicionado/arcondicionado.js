@@ -13,7 +13,7 @@
 
 	};
 
-	var ControllerFactory = new ControllerCreatorFactory(arcondicionado);
+	var ControllerFactory = new ControllerCreatorFactory(arcondicionado, client);
 	
 	var controller = new ControllerFactory(function(resp, topic){
 
@@ -27,6 +27,7 @@
 
 	});
 
+	
 
 	client.on('connect', function(){
 

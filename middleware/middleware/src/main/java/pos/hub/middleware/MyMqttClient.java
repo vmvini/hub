@@ -7,6 +7,10 @@ package pos.hub.middleware;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Initialized;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -27,8 +31,12 @@ public class MyMqttClient implements MqttCallback {
     private Throwable e;
     
     
+    @Inject
+    @MqttMessageQualifier
+    Event<String> cdiEvent;
+    
     @PostConstruct
-    private void init(){
+    private void init( @Observes @Initialized(ApplicationScoped.class) Object init ){
         connect();
     }
     
@@ -67,9 +75,14 @@ public class MyMqttClient implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage mm) throws Exception {
         
+        String msg = topic + "::" + new String(mm.getPayload());
+        
         System.out.println("enviar para o cliente por meio de websocket");
         System.out.println("mensagem:" + new String(mm.getPayload()));
         System.out.println("topico: " + topic);
+        
+        cdiEvent.fire(msg);
+        
         
     }
 

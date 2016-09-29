@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html ng-app="hub" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Varela" rel="stylesheet" />
+<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+
+<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+
+<link rel="stylesheet" href="dependencies/css/bootstrap.min.css" />
+<link rel="stylesheet" href="dependencies/css/ng-grid.min.css" />
+
+<script src="dependencies/angular.min.js"></script>
+<script src="dependencies/jquery.min.js"></script>
+<script src="dependencies/ui-bootstrap-tpls.min.js"></script>
+<script src="dependencies/ng-grid.min.js"></script>
+
+<script src="dependencies/angular_app/app.js"></script>
+<script src="dependencies/angular_app/service.js"></script>
+<script src="dependencies/angular_app/websocket.js"></script>
+<script src="dependencies/angular_app/controller.js"></script>
+
+</head>	
+<body ng-controller="controller as vm" >
+<div id="wrapper">
+	<div id="header-wrapper">
+	<div id="header" class="container">
+		<div id="logo">
+			<h1><a href="#">HUB {{vm.mensagemRecebida}}</a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				
+			</ul>
+		</div>
+	</div>
+	</div>
+	<div id="banner">
+		<div class="container">
+			<div class="title">
+				<h2>HUB</h2>
+				<span class="byline">{{1+1}} Projeto POS</span> </div>
+			
+		</div>
+	</div>
+	<div id="extra" class="container">
+		<!--div class="title">
+			<h2>Praesent scelerisquet</h2>
+			<span class="byline">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue</span> </div>
+		
+		<ul class="actions">
+			<li><a href="#" class="button">Etiam posuere</a></li>
+		</ul-->
+	</div>
+		
+</div>
+
+</body>
 </html>

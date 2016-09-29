@@ -41,25 +41,13 @@ public class LampadaService implements Controle {
     }
 
     @PUT
-    @Path("aumentar/{valor}")
+    @Path("alterar/{valor}")
     @Override
     @Produces("application/json")
-    public Response aumentar(@PathParam("valor") int valor) {
+    public Response alterar(@PathParam("valor") int valor) {
         
         JSONObject json = new JSONObject();
         json.put("lampada aumentar", valor);
-        
-        return Response.status(200).entity(""+json).build();
-    }
-
-    @PUT
-    @Path("diminuir/{valor}")
-    @Override
-    @Produces("application/json")
-    public Response diminuir(@PathParam("valor") int valor) {
-        
-        JSONObject json = new JSONObject();
-        json.put("lampada diminuir", valor);
         
         return Response.status(200).entity(""+json).build();
     }

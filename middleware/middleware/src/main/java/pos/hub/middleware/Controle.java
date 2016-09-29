@@ -17,9 +17,7 @@ public interface Controle {
     
     Response desligar();
     
-    Response aumentar(int valor);
-    
-    Response diminuir(int valor);
+    Response alterar(int valor);
     
     Response getIntensidade();
     

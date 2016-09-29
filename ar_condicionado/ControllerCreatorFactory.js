@@ -1,8 +1,16 @@
-module.exports = function(target){
+module.exports = function(target, client){
 
 	var topicName = "arcondicionado";
 
 	var respTopicName = "info/arcondicionado"
+
+	setInterval(function(){
+
+		client.publish( createInfoTopicName("intensidade"), String(target.intensity)  );
+		console.log("enviou mensagem");
+
+	}, 1000);
+
 
 	function createTopicName(subtopic){
 		return topicName + "/" + subtopic;
@@ -29,29 +37,20 @@ module.exports = function(target){
 		}
 	}
 
-	function increase(v){
+	function update(v){
 		
-		if(target.intensity + Number(v) > 100 ){
+		if(v > 100 ){
 			target.intensity = 100;
 		}
-		else{ 
-			target.intensity += Number(v);
-		}
-
-	}
-
-	function decrease(v){
-		
-		if(target.intensity - Number(v) < 0){
+		else if(v < 0){
 			target.intensity = 0;
 		}
 		else{
-			target.intensity -= Number(v);
+			target.intensity = v;
 		}
 
 	}
-
-
+	
 	function getIntensity(){
 		return target.intensity;
 	}
@@ -72,18 +71,14 @@ module.exports = function(target){
 			console.log("desligou o ar condicionado");
 		};
 
-		this[createTopicName("aumentar")] = function(v){
+		this[createTopicName("alterar")] = function(v){
 
-			increase(v);
-			console.log("aumentou temperatura em " + v + " unidades");
+			update(v);
+			console.log("alterou temperatura para " + v + " unidades");
 
 		};
 
-		this[createTopicName("diminuir")] = function(v){
-			decrease(v);
-			console.log("diminuiu temperatura em " + v + " unidades");
-		};
-
+		
 		this[createTopicName("status")] = function(){
 			console.log("status: " + getStatus());
 			

@@ -28,7 +28,8 @@ public class ArCondicionadoService implements Controle {
     private final String topic = "arcondicionado/";
     
     private Response sendMessage(Comandos subtopic, String message){
-         try{
+        
+        try{
             mqtt.sendMessage(this.topic + subtopic.getTopic(), message);
             JSONObject json = new JSONObject();
             json.put("success", "true");
@@ -62,24 +63,15 @@ public class ArCondicionadoService implements Controle {
     }
 
     @PUT
-    @Path("aumentar/{valor}")
+    @Path("alterar/{valor}")
     @Override
     @Produces("application/json")
-    public Response aumentar(@PathParam("valor") int valor) {
+    public Response alterar(@PathParam("valor") int valor) {
         
-        return sendMessage(Comandos.AUMENTAR, Integer.toString(valor));
-        
-    }
-
-    @PUT
-    @Path("diminuir/{valor}")
-    @Override
-    @Produces("application/json")
-    public Response diminuir(@PathParam("valor") int valor) {
-        
-        return sendMessage(Comandos.DIMINUIR, Integer.toString(valor));
+        return sendMessage(Comandos.ALTERAR, Integer.toString(valor));
         
     }
+    
 
 
     @GET

@@ -15,8 +15,7 @@ public enum Comandos {
     DESLIGAR("desligar"),
     STATUS("status"),
     INTENSIDADE("intensidade"),
-    AUMENTAR("aumentar"),
-    DIMINUIR("diminuir");
+    ALTERAR("alterar");
     
     private String topic;
     
