@@ -5,12 +5,14 @@
  */
 package pos.hub.middleware;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.json.JSONObject;
 
 /**
@@ -20,14 +22,31 @@ import org.json.JSONObject;
 @Path("arcondicionado")
 public class ArCondicionadoService implements Controle {
 
+    
+    private MqttFacade mqtt;
+    
+    public ArCondicionadoService(){
+        mqtt = new MqttFacade();
+    }
+    
+    
     @PUT
     @Override
     @Path("ligar")
     @Produces("application/json")
     public Response ligar() {
-        JSONObject json = new JSONObject();
-        json.put("arcondicionado ligar", "true");
-        return Response.status(200).entity(""+json).build();
+        try{
+            mqtt.sendMessage("arcondicionado/ligar", "ligar");
+            JSONObject json = new JSONObject();
+            json.put("success", "true");
+            return Response.status(200).entity(""+json).build();
+        }
+        catch(MqttException e){
+            JSONObject json = new JSONObject();
+            json.put("msg", "Erro ao conectar ao mqtt broker");
+            return Response.status(500).entity(""+json).build();
+        }
+        
     }
 
     @PUT
