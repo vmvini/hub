@@ -7,22 +7,33 @@
 	function controller($scope, service, websocket, identify){
 
 		var vm = this;
-		vm.arStatus = "";
-		vm.arTemperatura = "";
-		vm.lampadaStatus = "";
-		vm.luzBrilho = "";
+
+		vm.ar = {
+
+			status: "", 
+			temperatura: "", 
+
+		};
+
+		vm.luz = {
+
+			status: "", 
+			brilho: ""
+
+		};
 
 		vm.novoArTemperatura = "";
+		vm.novoBrilho = "";
 		
 		websocket.onmessage(function(d){
 			//vm.mensagemRecebida = d;
 
 			identify.for(d, vm, {
 
-				"info/arcondicionado/status": "arStatus",
-				"info/arcondicionado/intensidade":"arTemperatura", 
-				"info/lampada/status":"lampadaStatus", 
-				"info/lampada/intensidade":"luzBrilho"
+				"info/arcondicionado/status": "ar.status",
+				"info/arcondicionado/intensidade":"ar.temperatura", 
+				"info/lampada/status":"luz.status", 
+				"info/lampada/intensidade":"luz.brilho"
 
 
 			});
@@ -94,7 +105,7 @@
 
 		vm.mudarBrilhoLuz = function(){
 
-			service.mudarBrilhoLuz(vm.luzBrilho)
+			service.mudarBrilhoLuz(vm.novoBrilho)
 					.success(function(e){
 						console.log("sucesso ao desligar luz", e);
 					})	

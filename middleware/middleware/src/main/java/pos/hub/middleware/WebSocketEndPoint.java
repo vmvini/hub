@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package pos.hub.middleware;
+import pos.hub.middleware.mqtt.MqttMessageQualifier;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;

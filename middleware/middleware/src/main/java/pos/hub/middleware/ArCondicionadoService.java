@@ -14,6 +14,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.json.JSONObject;
+import pos.hub.middleware.mqtt.MyAbstractMqttClient;
+import pos.hub.middleware.mqtt.arcondicionado.ArCondiMqttClientQualifier;
 
 /**
  *
@@ -23,7 +25,8 @@ import org.json.JSONObject;
 public class ArCondicionadoService implements Controle {
 
     @Inject
-    private MyMqttClient mqtt;
+    @ArCondiMqttClientQualifier
+    private MyAbstractMqttClient mqtt; 
     
     private final String topic = "arcondicionado/";
     

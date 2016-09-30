@@ -43,7 +43,7 @@
 	<div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
-			<h1><a href="#">HUB {{vm.arTemperatura}}</a></h1>
+			<h1><a href="#">HUB Temperatura: {{vm.ar.temperatura}} | Brilho: {{vm.luz.brilho}}</a></h1>
 		</div>
 		<div id="menu">
 			<ul>
@@ -67,18 +67,22 @@
 				<input id="arTemp" type="text" ng-model="vm.novoArTemperatura" /> 
 				<button ng-click="vm.mudarTemperaturaAr()">Atualizar temperatura</button>
 
-				<p>Status do ar condicionado: {{vm.arStatus}} </p>
+				<p>Status do ar condicionado: {{vm.ar.status}} </p>
 				<button ng-click="vm.ligarAr()">Ligar</button>
 				<button ng-click="vm.desligarAr()">Desligar</button>
 
+	</div>
 
-		<!--div class="title">
-			<h2>Praesent scelerisquet</h2>
-			<span class="byline">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue</span> </div>
-		
-		<ul class="actions">
-			<li><a href="#" class="button">Etiam posuere</a></li>
-		</ul-->
+	<div id="extra" class="container">
+
+
+				<label for="lamp" >Brilho da lâmpada:</label>>
+				<input id="lamp" type="text" ng-model="vm.novoBrilho" /> 
+				<button ng-click="vm.mudarBrilhoLuz()">Atualizar brilho da lampada</button>
+
+				<p>Status do ar condicionado: {{vm.luz.status}} </p>
+				<button ng-click="vm.ligarLuz()">Ligar</button>
+				<button ng-click="vm.desligarLuz()">Desligar</button>
 	</div>
 		
 </div>

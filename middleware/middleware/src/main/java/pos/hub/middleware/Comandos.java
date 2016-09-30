@@ -17,7 +17,7 @@ public enum Comandos {
     INTENSIDADE("intensidade"),
     ALTERAR("alterar");
     
-    private String topic;
+    private final String topic;
     
     Comandos(String topic){
         this.topic = topic;

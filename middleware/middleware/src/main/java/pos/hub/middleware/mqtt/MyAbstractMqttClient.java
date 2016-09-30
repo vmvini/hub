@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pos.hub.middleware;
+package pos.hub.middleware.mqtt;
 
-import pos.hub.middleware.mqtt.MqttMessageQualifier;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
@@ -22,14 +21,15 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  *
  * @author vmvini
  */
-@ApplicationScoped
-public class MyMqttClient implements MqttCallback {
-    
+public abstract class MyAbstractMqttClient implements MqttCallback {
     private final String brokerUrl = "tcp://broker:1883";
-    private final String myId = "middleware";
+    //private final String myId = "middleware";
     private MqttClient client;
     private Throwable e;
     
+    
+    protected abstract String getId();
+    protected abstract String getTopic();
     
     @Inject
     @MqttMessageQualifier
@@ -42,10 +42,10 @@ public class MyMqttClient implements MqttCallback {
     
     private void connect(){
         try{
-            client = new MqttClient(brokerUrl, myId);
+            client = new MqttClient(brokerUrl, getId());
             client.connect();
             client.setCallback(this);
-            client.subscribe("info/arcondicionado/#");
+            client.subscribe(getTopic());
             
         }
         catch(MqttException e){
@@ -82,13 +82,10 @@ public class MyMqttClient implements MqttCallback {
         System.out.println("topico: " + topic);
         
         cdiEvent.fire(msg);
-        
-        
     }
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken imdt) {
         System.out.println("deliveryComplete");
     }
-    
 }
